@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-O `npm install` baixa o `arcade-hub-ui`, que é privado: o git da máquina precisa ter acesso ao GitHub (por exemplo, `gh auth login`).
+O `npm install` baixa o `arcade-hub-ui` do GitHub. O repositório é público, então não precisa de login nem de token.
 
 Precisa do [arcade-hub-back](https://github.com/Gabryelryba/arcade-hub-back) rodando (padrão `http://localhost:3001`; troque com `VITE_SERVER_URL`, veja `.env.example`). Para "Voltar ao Recreio" e os convites de outros jogos apontarem para servidores locais, use `VITE_GAME_URLS`.
 
@@ -44,9 +44,8 @@ Produção: https://liga-pontos.onrender.com. Convites são `https://liga-pontos
 
 Static site no plano gratuito, descrito no `render.yaml` (Blueprint). O serviço se chama `liga-pontos`, sem o sufixo `-front` do repositório, porque o nome do serviço define o endereço.
 
-1. Crie um token fine-grained no GitHub, só leitura (`Contents: Read`), com acesso apenas ao `arcade-hub-ui`. O mesmo token serve para todos os sites do Recreio.
-2. No Render: New → Blueprint, escolha este repositório e informe o `GITHUB_TOKEN` quando for pedido.
-3. Confira o endereço gerado. Tem que ser exatamente `https://liga-pontos.onrender.com`. Se o Render acrescentar um sufixo (`liga-pontos-xxxx`), apague o serviço e crie de novo com o nome `liga-pontos-jogo`. Nesse caso, atualize o `GAME_URLS` no `arcade-hub-ui` e o `CORS_ORIGIN` do `arcade-hub-back`.
-4. A origem do site precisa estar no `CORS_ORIGIN` do `arcade-hub-back`.
+1. No Render: New → Blueprint e escolha este repositório. O app do Render no GitHub precisa ter acesso a ele.
+2. Confira o endereço gerado. Tem que ser exatamente `https://liga-pontos.onrender.com`. Se o Render acrescentar um sufixo (`liga-pontos-xxxx`), apague o serviço e crie de novo com o nome `liga-pontos-jogo`. Nesse caso, atualize o `GAME_URLS` no `arcade-hub-ui` e o `CORS_ORIGIN` do `arcade-hub-back`.
+3. A origem do site precisa estar no `CORS_ORIGIN` do `arcade-hub-back`.
 
 O build roda `npm ci && npm run build` com `VITE_SERVER_URL=https://arcade-hub-back.onrender.com` e publica `dist/`. Cada push no `main` gera um novo deploy.
