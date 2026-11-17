@@ -5,13 +5,13 @@
   import { keepScreenAwake, allowScreenSleep } from "arcade-hub-ui/wakeLock.js";
   import { inviteUrl } from "arcade-hub-ui/invite.js";
   import Preview from "./Preview.svelte";
-  import GameMenu from "arcade-hub-ui/GameMenu.svelte";
+  import GameLanding from "arcade-hub-ui/GameLanding.svelte";
   import Lobby from "./Lobby.svelte";
   import Board from "./Board.svelte";
   import Scoreboard from "./Scoreboard.svelte";
   import Result from "./Result.svelte";
   import { startHint } from "arcade-hub-ui/lobbyText.js";
-  import { t, serverMessage } from "arcade-hub-ui/i18n/index.svelte.js";
+  import { t, tList, serverMessage } from "arcade-hub-ui/i18n/index.svelte.js";
 
   const GAME_ID = "dotz";
   // Seats in the waiting room, as on the server (games/<id> in arcade-hub-back).
@@ -19,11 +19,11 @@
 
   // Props come from GameApp (arcade-hub-ui), which mounts the game.
   let {
-    onExit,
     inviteCode: invitedTo = null,
     onInviteUsed = () => {},
-    onSwitchGame = () => false,
+    playerName = null,
     ensureName = async () => null,
+    editName = null,
   } = $props();
 
   let status = $state("connecting"); // connecting | menu | joining | lobby | playing | ended
@@ -134,11 +134,9 @@
   }
 
   // Server refusals come with a code, translated here into what to do next.
+  // A code from another game's room is refused by the server as room-not-found.
   function handleJoinError(refusal) {
-    const { gameId } = refusal;
-    // The code belongs to another game in the hub: open that game with it.
-    if (gameId && gameId !== GAME_ID && onSwitchGame(gameId, roomCode)) return;
-    joinError = gameId && gameId !== GAME_ID ? t("errors.join.other-game") : serverMessage("join", refusal);
+    joinError = serverMessage("join", refusal);
     status = "menu";
     showJoinForm = true;
   }
@@ -254,14 +252,15 @@
     }
   }
 
-  // Leaving a live match takes the player out of it, so it takes a second tap.
+  // Leave goes back to the landing page. Leaving a live match takes the player
+  // out of it, so it takes a second tap.
   function handleBack() {
     if (status === "playing" && !confirmLeave) {
       confirmLeave = true;
       setTimeout(() => (confirmLeave = false), 3500);
       return;
     }
-    onExit();
+    leaveRoom();
   }
 
   function sendMove(move) {
@@ -296,36 +295,41 @@
 </script>
 
 <main class="screen" class:in-game={inMatch}>
-  <header class="topbar">
-    <button
-      class="btn btn-ghost back"
-      class:btn-danger={confirmLeave}
-      onclick={handleBack}
-      aria-label={confirmLeave ? t("dotz.leaveMatchAria") : t("common.backToHub")}
-    >
-      <ArrowLeft size={18} weight="light" aria-hidden="true" />
-      <span>{confirmLeave ? t("dotz.leaveMatch") : "Recreio"}</span>
-    </button>
-    {#if inRoom}
-      <span class="game-name" translate="no">{t("games.dotz.name")}</span>
-    {/if}
-  </header>
+  {#if inRoom}
+    <header class="topbar">
+      <button
+        class="btn btn-ghost back"
+        class:btn-danger={confirmLeave}
+        onclick={handleBack}
+        aria-label={confirmLeave ? t("dotz.leaveMatchAria") : t("dotz.leaveAria")}
+      >
+        <ArrowLeft size={18} weight="light" aria-hidden="true" />
+        <span>{confirmLeave ? t("dotz.leaveMatch") : t("dotz.leave")}</span>
+      </button>
+      {#if inRoom}
+        <span class="game-name" translate="no">{t("dotz.name")}</span>
+      {/if}
+    </header>
+  {/if}
 
   {#if status === "menu" || status === "connecting"}
-    <GameMenu
+    <GameLanding
       gameId={GAME_ID}
       eyebrow={t("dotz.eyebrow")}
-      title={t("games.dotz.name")}
+      title={t("dotz.name")}
       lede={t("dotz.lede")}
+      steps={tList("dotz.steps")}
       connecting={status === "connecting"}
       {slowServer}
       bind:joinError
       bind:showJoinForm
       onCreate={createRoom}
       onJoin={sendJoin}
+      {playerName}
+      onEditName={editName}
     >
       {#snippet art()}<Preview />{/snippet}
-    </GameMenu>
+    </GameLanding>
   {:else if status === "joining" || (status === "lobby" && !lobby)}
     <section class="center-state" aria-busy="true">
       <p class="status-line" role="status" aria-live="polite">

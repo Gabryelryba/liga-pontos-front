@@ -7,7 +7,7 @@ import Dotz from "./dotz/Dotz.svelte";
 
 // The game's own texts first: the page reads them as soon as it mounts.
 registerMessages(messages);
-document.title = t("games.dotz.name");
+document.title = t("dotz.name");
 
 const app = mount(GameApp, {
   target: document.getElementById("app"),
