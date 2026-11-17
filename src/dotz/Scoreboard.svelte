@@ -53,7 +53,7 @@
     gap: 0.3rem;
     padding: 0.55rem 0.65rem 0.7rem;
     border-radius: 1.1rem;
-    background: rgba(207, 224, 255, 0.025);
+    background: var(--sheen);
     border: 1px solid var(--line);
     min-width: 0;
     transition:
