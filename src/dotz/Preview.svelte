@@ -1,5 +1,5 @@
 <script>
-  // A small looping picture of the game for the hub card: a board in progress,
+  // A small looping picture of the game for the landing page: a board in progress,
   // two lines drawn in turn, and the second one closes a box. CSS only.
   const DOTS = [0, 1, 2, 3];
   const at = (i) => 45 + i * 70;

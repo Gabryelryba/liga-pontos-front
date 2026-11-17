@@ -8,6 +8,16 @@ const en = {
   },
 
   dotz: {
+    name: "Dotz",
+    leave: "Leave",
+    leaveAria: "Leave the room and go back to the start",
+    // "How to play" on the landing page, read with tList().
+    steps: [
+      { title: "Create a room and send the link", text: "From 2 to 4 players. Friends open the link, or type the room code, and get ready in the waiting room." },
+      { title: "Join two neighbouring dots", text: "On your turn, drag from a dot to the one next to it, across or down, to draw a line." },
+      { title: "Close a box, play again", text: "Draw the fourth side of a box and it is yours: it takes your colour and you go again." },
+      { title: "Most boxes wins", text: "The match ends when every box is closed. Whoever has the most boxes wins." },
+    ],
     eyebrow: "Dots and boxes · 2 to 4 players",
     lede: "Take turns joining two neighbouring dots. Draw the fourth side of a box to keep it and go again. When the board is full, the most boxes wins.",
     leaveMatch: "Leave Match?",
@@ -55,6 +65,16 @@ const ptBR = {
   },
 
   dotz: {
+    name: "Liga Pontos",
+    leave: "Sair",
+    leaveAria: "Sair da sala e voltar para o início",
+    // "How to play" on the landing page, read with tList().
+    steps: [
+      { title: "Crie a sala e mande o link", text: "De 2 a 4 jogadores. Quem abre o link, ou digita o código da sala, entra e marca que está pronto." },
+      { title: "Ligue dois pontos vizinhos", text: "Na sua vez, arraste de um ponto até o vizinho, na horizontal ou na vertical, para desenhar uma linha." },
+      { title: "Fechou um quadrado, joga de novo", text: "Quem desenha o quarto lado de um quadrado fica com ele: o quadrado ganha a sua cor e você joga outra vez." },
+      { title: "Vence quem tiver mais quadrados", text: "A partida acaba quando todos os quadrados estão fechados. Ganha quem fechou mais." },
+    ],
     eyebrow: "Jogo do pontinho · 2 a 4 jogadores",
     lede: "Liguem dois pontos vizinhos em turnos. Quem desenhar o quarto lado de um quadrado fica com ele e joga de novo. Com o tabuleiro cheio, vence quem tiver mais quadrados.",
     leaveMatch: "Sair da Partida?",
