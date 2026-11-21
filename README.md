@@ -1,6 +1,6 @@
 # liga-pontos-front
 
-Liga Pontos (Dotz em inglês) é um site independente: o jogo de pontinhos para 2 a 4 jogadores. Cada um liga dois pontos vizinhos por vez; quem fecha um quadrado fica com ele e joga de novo. Ganha quem fechar mais quadrados.
+Liga Pontos é um site independente: o jogo de pontinhos para 2 a 4 jogadores. Cada um liga dois pontos vizinhos por vez; quem fecha um quadrado fica com ele e joga de novo. Ganha quem fechar mais quadrados.
 
 Este repositório é só o site do jogo. O servidor é o [arcade-hub-back](https://github.com/Gabryelryba/arcade-hub-back) (id do jogo: `dotz`), compartilhado com os outros jogos. O código comum (componentes, socket, i18n, estilos) vem do pacote [arcade-hub-ui](https://github.com/Gabryelryba/arcade-hub-ui).
 
@@ -26,7 +26,7 @@ Precisa do [arcade-hub-back](https://github.com/Gabryelryba/arcade-hub-back) rod
 
 - `src/main.js`: registra os textos do jogo e monta a página (`GameApp` do `arcade-hub-ui`) com o jogo
 - `src/dotz/`: o jogo
-- `src/i18n.js`: textos próprios do jogo, em português e inglês
+- `src/i18n.js`: textos próprios do jogo, em português
 
 ## Outros comandos
 
@@ -38,7 +38,7 @@ npm run preview  # serve o build
 
 ## Landing page
 
-A primeira tela do site é a landing page do jogo (`GameLanding` do `arcade-hub-ui`): o nome, a chamada e o tabuleiro animado (`Preview.svelte`), **Criar Sala**, **Entrar com Código** e a seção "Como jogar". Os passos de "Como jogar" ficam em `dotz.steps` no `src/i18n.js`, nos dois idiomas.
+A primeira tela do site é a landing page do jogo (`GameLanding` do `arcade-hub-ui`): o nome, a chamada e o tabuleiro animado (`Preview.svelte`), **Criar Sala**, **Entrar com Código** e a seção "Como jogar". Os passos de "Como jogar" ficam em `dotz.steps` no `src/i18n.js`.
 
 Não existe mais o hub Recreio: o site não leva a outros jogos, e sair de uma sala ou partida volta para a landing page. Um código de sala de outro jogo é recusado pelo servidor como sala inexistente.
 
